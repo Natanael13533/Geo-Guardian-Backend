@@ -1,0 +1,31 @@
+services:
+
+  app:
+    build: .
+    ports: 
+      - 8000:8000
+    depends_on:
+      - db
+    env_file:
+      - .env
+    commands:
+      - python manage.py runserver 0.0.0.0:8000
+    networks:
+      - default
+  db:
+    image: postgres:17
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+volumes:
+  postgres_data:
+    driver: local
+    name: postgres_data
+
+networks:
+  default:
+    driver: bridge
