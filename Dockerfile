@@ -1,5 +1,5 @@
 # Import base image
-FROM python:3.13.9-slim-bullseye
+FROM python:3.13.9-slim-bookworm
 
 # Set working directory
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
