@@ -6,6 +6,7 @@ from accounts.serializers import ForgotPasswordRequestSerializer, ResetPasswordS
 from accounts.models import ForgotPassword
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.core.mail import send_mail
 import os
 
 class ForgotPasswordView(generics.GenericAPIView):
@@ -14,6 +15,12 @@ class ForgotPasswordView(generics.GenericAPIView):
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
+        print(os.environ.get('DEFAULT_FROM_EMAIL'))
+        print(os.environ.get('EMAIL_HOST'))
+        print(os.environ.get('EMAIL_PORT'))
+        print(os.environ.get("EMAIL_BACKEND"))
+        print(os.environ.get("EMAIL_USE_TLS"))
+        print(os.environ.get("EMAIL_USE_SSL"))
         email = request.data['email']
         user = User.objects.filter(email__iexact=email).first()
 
@@ -23,9 +30,14 @@ class ForgotPasswordView(generics.GenericAPIView):
             reset = ForgotPassword(email=email, token=token)
             reset.save()
 
-            reset_url = f"{os.environ["PASSWORD_RESET_BASE_URL"]}/{token}"
-
             # Send Email logic here
+            send_mail(
+                subject='Password Reset Request',
+                message=f'Use the following token to reset your password: {token}',
+                from_email=os.environ.get('DEFAULT_FROM_EMAIL'),
+                recipient_list=[email],
+                fail_silently=False,
+            )
 
             return Response({
                 "success": True,

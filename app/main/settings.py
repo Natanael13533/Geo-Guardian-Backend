@@ -154,5 +154,5 @@ SIMPLE_JWT = {
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "")
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
 EMAIL_PORT = os.environ.get("EMAIL_PORT", 1025)
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", False)
-EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", False)
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
