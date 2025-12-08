@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
 # Use Serializer because i need confirmation password field
-class UserSerializer(serializers.Serializer):
+class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
@@ -30,3 +30,7 @@ class UserSerializer(serializers.Serializer):
 
         return user
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['__all__']

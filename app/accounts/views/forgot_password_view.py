@@ -15,12 +15,6 @@ class ForgotPasswordView(generics.GenericAPIView):
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
-        print(os.environ.get('DEFAULT_FROM_EMAIL'))
-        print(os.environ.get('EMAIL_HOST'))
-        print(os.environ.get('EMAIL_PORT'))
-        print(os.environ.get("EMAIL_BACKEND"))
-        print(os.environ.get("EMAIL_USE_TLS"))
-        print(os.environ.get("EMAIL_USE_SSL"))
         email = request.data['email']
         user = User.objects.filter(email__iexact=email).first()
 

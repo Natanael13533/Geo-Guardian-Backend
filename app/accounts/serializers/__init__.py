@@ -1,2 +1,2 @@
-from .user_serializer import UserSerializer
+from .user_serializer import RegisterSerializer, UserSerializer
 from .forgot_password_serializer import ForgotPasswordRequestSerializer, ResetPasswordSerializer
